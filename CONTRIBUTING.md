@@ -15,7 +15,7 @@ cd frontend && npm install
 ## Before opening a pull request
 
 ```bash
-cd backend && pytest -q
+cd backend && python -m pytest -q
 cd ../frontend && npm run build
 ```
 

@@ -134,6 +134,21 @@ npm run dev
 
 Open `http://localhost:5173`. The frontend defaults to `http://localhost:8000` for the API. Set `VITE_API_BASE_URL` to point elsewhere.
 
+### Production deployment
+
+```bash
+cd frontend
+npm ci
+npm run build
+# Serve frontend/dist with any static host or reverse proxy.
+
+cd ../backend
+pip install -r requirements.txt
+uvicorn app.main:app --host 0.0.0.0 --port 8000
+```
+
+Set `VITE_API_BASE_URL` at build time to the public API URL, and set `CORS_ORIGINS` to the deployed frontend origin. Persist `backend/data/` if task history matters. The app is otherwise stateless and does not require a paid API key.
+
 ## 10. Environment configuration
 
 Copy `.env.example` to `.env` and export the values in your shell (the backend does not auto-load `.env`).
@@ -176,7 +191,7 @@ The response contains `summary`, `result` (structured metrics, findings, tables,
 
 ```bash
 cd backend
-pytest -q
+python -m pytest -q
 
 cd ../frontend
 npm run build
